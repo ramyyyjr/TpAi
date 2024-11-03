@@ -3,31 +3,31 @@
 creer_tache(Id, Desc, Assign) :-
     \+ tache(Id, _, _, _),
     assertz(tache(Id, Desc, Assign, false)),
-    format("Tâche créée : ~w.~n", [Id]).
+    format("TÃ¢che crÃ©Ã©e : ~w.~n", [Id]).
 
 assigner_tache(Id, NouveauAssign) :-
     retract(tache(Id, Desc, _, Statut)),
     assertz(tache(Id, Desc, NouveauAssign, Statut)),
-    format("Tâche ~w assignée à l’utilisateur : ~w.~n", [Id, NouveauAssign]).
+    format("TÃ¢che ~w assignÃ©e Ã  lâ€™utilisateur : ~w.~n", [Id, NouveauAssign]).
 
 marquer_terminee(Id) :-
     retract(tache(Id, Desc, Assign, _)),
     assertz(tache(Id, Desc, Assign, true)),
-    format("Tâche ~w marquée comme terminée.~n", [Id]).
+    format("TÃ¢che ~w marquÃ©e comme terminÃ©e.~n", [Id]).
 
 afficher_taches :-
     forall(tache(Id, Desc, Assign, Statut),
-           (format("Tâche ~w :~n- Description : ~w~n- Assigné : ~w~n- Statut de complétion : ~w~n~n",
+           (format("TÃ¢che ~w :~n- Description : ~w~n- AssignÃ© : ~w~n- Statut de complÃ©tion : ~w~n~n",
                    [Id, Desc, Assign, Statut]))).
 
-afficher_taches_assignee_a(Assign) :-
-    format("Tâches assignées à ~w :~n", [Assign]),
+afficher_taches_assignee_(Assign) :-
+    format("TÃ¢ches assignÃ©es Ã  ~w :~n", [Assign]),
     forall(tache(Id, Desc, Assign, Statut),
-           (format("Tâche ~w :~n- Description : ~w~n- Statut de complétion : ~w~n~n",
+           (format("TÃ¢che ~w :~n- Description : ~w~n- Statut de complÃ©tion : ~w~n~n",
                    [Id, Desc, Statut]))).
 
 afficher_taches_terminees :-
-    format("Tâches terminées :~n"),
+    format("TÃ¢ches terminÃ©es :~n"),
     forall(tache(Id, Desc, Assign, true),
-           (format("Tâche ~w :~n- Description : ~w~n- Assigné : ~w~n~n",
+           (format("TÃ¢che ~w :~n- Description : ~w~n- AssignÃ© : ~w~n~n",
                    [Id, Desc, Assign]))).
